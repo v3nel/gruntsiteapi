@@ -26,6 +26,9 @@ if (env.NODE_ENV === 'development') {
 }
 
 app.use('/', indexRouter);
+app.use('/public', publicRouter);
+app.use('/users', usersRouter);
+app.use('/health', healthRouter);
 
 app.use(notFound);
 app.use(errorHandler);
