@@ -6,24 +6,23 @@ import morgan from 'morgan';
 import { env } from './config/env.js';
 import { notFound, errorHandler } from './middleware/errorHandler.js';
 import indexRouter from './routes/index.js';
+import { toNodeHandler } from "better-auth/node";
+import { auth } from "./auth/index.js";
 
 const app = express();
 
-// Basic security & parsing
+app.all("/api/auth/*splat", toNodeHandler(auth));
 app.use(helmet());
 app.use(cors({ origin: env.CORS_ORIGIN === '*' ? true : env.CORS_ORIGIN.split(',') }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Logging (dev only)
 if (env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// Routes
 app.use('/', indexRouter);
 
-// 404 and error handling
 app.use(notFound);
 app.use(errorHandler);
 
