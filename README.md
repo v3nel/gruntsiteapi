@@ -1,50 +1,43 @@
-# gruntsiteapi
+# Grünt Site API
+[![wakatime](https://wakatime.com/badge/github/v3nel/gruntsiteapi.svg)](https://wakatime.com/badge/github/v3nel/gruntsiteapi)
+[![codecov](https://codecov.io/github/v3nel/gruntsiteapi/branch/main/graph/badge.svg)](https://codecov.io/github/v3nel/gruntsiteapi)
 
-A lightweight Express + TypeScript API starter.
+## Overview
 
-## Features
-- Express 4 + TypeScript strict config
-- Environment validation with Zod
-- Security middleware: helmet, cors
-- Logging: morgan (dev only)
-- Centralized error & 404 handling
-- ESLint (flat config) + Prettier + lint-staged + Husky hook ready
+This project is a reimplementation of the Grünt website (originally built on Squarespace) with a modern, maintainable stack. The goal is to provide a flexible front-end and an administrative dashboard to manage podcasts, freestyles and live content, automate publishing workflows and integrate third‑party services (for example YouTube and Ausha).
 
-## Scripts
-- `npm run dev` – Start dev server with auto-reload
-- `npm run build` – Type-check & emit JS to `dist/`
-- `npm start` – Run compiled server
-- `npm run lint` – Lint all TS files
-- `npm run check-types` – Type-check without emitting
+Primary objectives:
+- Replace the legacy site with a responsive, accessible front-end.
+- Provide a content dashboard for uploads, scheduling and metadata.
+- Integrate publishing pipelines to major platforms (Spotify, Apple Podcasts, YouTube).
+- Maintain clear separation between front-end and back-end responsibilities.
 
-## Environment
-Copy `.env.example` to `.env` and adjust as needed.
+## Architecture
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| PORT | Port the HTTP server listens on | 4000 |
-| CORS_ORIGIN | Comma-separated list of allowed origins or * | * |
-| NODE_ENV | Node environment | development |
+- Front-end: Next.js (App Router) and React, Tailwind CSS for styling. With use of ShadCN/ui for the dashboard.
+- Back-end: Express.js (work in progress). Database access and secrets are handled server-side.
+- Development approach: prioritize front-end scaffolding and UX, then adapt the back-end API to match front-end requirements.
+- Optional: Prisma or another ORM for database access, server-side modules for secure data retrieval.
 
-## Project Structure
-```
-src/
-  server.ts        # Entry point creating HTTP server
-  app.ts           # Express app configuration
-  config/env.ts    # Environment schema + parsing
-  middleware/      # Error handlers
-  routes/          # Route modules (health, index)
-```
+## Roadmap
 
-## Adding Routes
-Create a new file in `src/routes`, export a router, then mount it in `routes/index.ts` or `app.ts`.
+- [ ] Website
+  - [ ] Home page
+  - [x] Contact page
+  - [ ] List pages (archive / index)
+  - [ ] Detail pages (podcast / episode / article)
+- [ ] Dashboard (admin interface)
+- [ ] Public API for client consumption
+- [ ] Dashboard API (secure endpoints for admin actions)
+- [ ] Integrations (YouTube, Ausha, analytics)
+- [ ] Authentication and role-based access for the dashboard
 
-## Run
-```bash
-npm install
-npm run dev
-```
-Then open: http://localhost:4000/ and http://localhost:4000/health
+## Development notes
 
-## License
-MIT
+- Keep sensitive logic (database credentials, private keys) in server-only modules.
+- Use Server Components for content rendering when possible to improve performance and security.
+- Tailwind CSS is used site-wide; restart the dev server after changing tailwind.config.ts.
+
+## Contact
+
+For inquiries or collaboration: [me@v3nel.me](mailto:me@v3nel.me)
