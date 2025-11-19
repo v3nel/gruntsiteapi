@@ -17,3 +17,5 @@ userRouter.post("/users",  (req: Request, res: Response) => {
 userRouter.patch("/users", (req: Request, res: Response) => {
 
 });
+
+export default userRouter;
