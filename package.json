@@ -11,6 +11,7 @@
     "build": "tsc -p .",
     "start": "node dist/server.js",
     "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
     "check-types": "tsc --noEmit -p .",
     "prepare": "husky"
   },
