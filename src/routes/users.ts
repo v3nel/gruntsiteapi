@@ -9,9 +9,13 @@ userRouter.post("/login", (req: Request, res: Response) => {
     
 });
 
-userRouter.get("/", async (res: Response) => {
-    const userTable = await db.select().from(users)
-    return res.status(200).json(userTable)
+userRouter.get("/", async (req: Request, res: Response, next) => {
+    try {
+        const userTable = await db.select().from(users);
+        return res.status(200).json(userTable);
+    } catch (error) {
+        next(error);
+    }
 });
 
 userRouter.post("/",  (req: Request, res: Response) => {
