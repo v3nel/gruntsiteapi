@@ -6,6 +6,7 @@ export const users = pgTable("users", {
     .default(sql`substr(encode(gen_random_bytes(12), 'hex'), 1, 24)`)
     .primaryKey(),
   email: text("email").notNull().unique(),
+  jwt: text(),
   hashed_password: text("hashed_password").notNull(),
   permissions: jsonb("permissions")
     .default(
