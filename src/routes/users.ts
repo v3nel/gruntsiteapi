@@ -1,4 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
+import { eq } from "drizzle-orm";
 
 import { db } from "../db/index.js";
 import { users } from "../db/schemas.js";
@@ -22,6 +23,12 @@ userRouter.get("/", async (req: Request, res: Response, next: NextFunction) => {
 userRouter.post("/", async (req: Request, res: Response, next: NextFunction) => {
     try {
         const body = req.body;
+        
+        const existingUser = await db.select().from(users).where(eq(users.email, body.email)).limit(1);
+        if (existingUser.length > 0) {
+            return res.status(409).json({ error: "User with this email already exists" });
+        }
+        
         const hash = await hashPassword(body.password);
         await db.insert(users).values([
             {
