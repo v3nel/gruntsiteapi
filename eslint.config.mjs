@@ -1,31 +1,40 @@
 import js from '@eslint/js';
-import ts from 'typescript-eslint';
-import prettier from 'eslint-config-prettier';
+import ts from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
 import pluginImport from 'eslint-plugin-import';
 
-export default ts.config(
+export default [
   js.configs.recommended,
-  ...ts.configs.recommended,
+
   {
-    name: 'grunt-base',
-    files: ['**/*.ts'],
+    files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
       ecmaVersion: 2022,
-      sourceType: 'module'
+      sourceType: 'module',
+      parser: tsParser,
+      globals: {
+        process: 'readonly',
+        console: 'readonly',
+      },
     },
     plugins: {
-      import: pluginImport
+      '@typescript-eslint': ts,
+      import: pluginImport,
     },
     rules: {
       'import/order': [
         'warn',
         {
           groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-          'newlines-between': 'always'
-        }
+          'newlines-between': 'always',
+        },
       ],
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
-    }
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    },
   },
-  prettier
-);
+
+  {
+    ignores: ['dist/', 'node_modules/'],
+  },
+];
