@@ -23,3 +23,9 @@ export const users = pgTable("users", {
     .notNull(),
   created_at: timestamp("created_at").defaultNow()
 });
+
+export const posts = pgTable("posts", {
+  id: char("id", {length: 24})
+    .default(sql`substr(encode(gen_random_bytes(12), 'hex'), 1, 24)`)
+    .primaryKey(),
+})
