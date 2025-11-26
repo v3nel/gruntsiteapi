@@ -79,7 +79,7 @@ userRouter.post("/", async (req: Request, res: Response, next: NextFunction) => 
 });
 
 userRouter.patch("/", (req: Request, res: Response) => {
-
+    
 });
 
 export default userRouter;
