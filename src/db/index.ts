@@ -10,4 +10,5 @@ const pool = new Pool({
 	password: env.POSTGRES_PASSWORD,
 	port: env.POSTGRES_PORT || 5432,
  });
+
 export const db = drizzle(pool);

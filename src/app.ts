@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 if (env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
-}
+};
 
 app.use('/', indexRouter);
 app.use('/public', publicRouter);

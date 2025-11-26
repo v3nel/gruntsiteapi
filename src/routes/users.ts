@@ -25,18 +25,18 @@ userRouter.post("/login", async (req: Request, res: Response, next: NextFunction
         const userq = await db.select().from(users).where(eq(users.email, email)).limit(1);
         const user = userq[0];
 
-        const isValid = verifyHash(user.hashed_password, password)
+        const isValid = verifyHash(user.hashed_password, password);
 
         if (!isValid) {
-            return res.status(401).json({error: "This email/password combinaison does not exist"})
+            return res.status(401).json({error: "This email/password combinaison does not exist"});
         }
 
         if (!user.jwt) {
             const token = await generateAndStoreJWT(user.id, user.email);
-            return res.status(200).json({ message: "Successfully logged in", email: user.email, jwt: token})
+            return res.status(200).json({ message: "Successfully logged in", email: user.email, jwt: token});
         }
 
-        return res.status(200).json({ message: "Successfully logged in", email: user.email, jwt: user.jwt})
+        return res.status(200).json({ message: "Successfully logged in", email: user.email, jwt: user.jwt});
     } catch(err) {
         next(err)
     }
@@ -72,9 +72,9 @@ userRouter.post("/", async (req: Request, res: Response, next: NextFunction) => 
             response: "User created with the next informations",
             email: body.email,
             permissions: body.permissions
-        })
+        });
     } catch(err) {
-        next(err)
+        next(err);
     }
 });
 
