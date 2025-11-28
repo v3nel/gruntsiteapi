@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, char, jsonb } from "drizzle-orm/pg-core";
+import { pgTable, pgEnum, text, timestamp, char, jsonb } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
 export const users = pgTable("users", {
@@ -24,8 +24,14 @@ export const users = pgTable("users", {
   created_at: timestamp("created_at").defaultNow()
 });
 
+const postType = pgEnum("postType", ["vertical", "video", "photo"]);
+
 export const posts = pgTable("posts", {
-  id: char("id", {length: 24})
+  id: char("id", { length: 24 })
     .default(sql`substr(encode(gen_random_bytes(12), 'hex'), 1, 24)`)
     .primaryKey(),
-})
+  type: postType("type").notNull(),
+  description: text("description"),
+  platforms: jsonb("platforms").notNull(),
+  mediaurl: text("url").notNull()
+});
