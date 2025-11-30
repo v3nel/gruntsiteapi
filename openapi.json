@@ -1,0 +1,11 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Friendlist API",
+    "version": "0.0.1b",
+    "description": "Internal API of Friendlist"
+  },
+  "paths": {},
+  "components": {},
+  "tags": []
+}

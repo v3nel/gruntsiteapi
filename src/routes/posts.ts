@@ -1,8 +1,8 @@
 import { NextFunction, Router, Request, Response } from "express";
+import { eq } from "drizzle-orm";
 
 import { db } from "../db/index.js";
 import { posts } from "../db/schemas.js";
-import { eq } from "drizzle-orm";
 
 const postRouter = Router();
 
