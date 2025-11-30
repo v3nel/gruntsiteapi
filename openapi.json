@@ -5,7 +5,94 @@
     "version": "0.0.1b",
     "description": "Internal API of the Grünt website"
   },
-  "paths": {},
+  "paths": {
+    "/users/login": {
+      "post": {
+        "summary": "Login",
+        "description": "Login to your account",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "johndoe@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "Supersecurepass!1234"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "response": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully logged in"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "johndoe@gmail.com"
+                    },
+                    "jwt": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....jz9KN_7KtAE"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Login failed for bad combinaison",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errror": {
+                      "type": "string",
+                      "example": "This email/password combinaison does not exist"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "summary": "Create user",
+        "description": "Allows authorized users to create an user on the dashboard",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": null
+            }
+          }
+        }
+      }
+    }
+  },
   "components": {},
   "tags": []
 }

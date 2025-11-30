@@ -12,6 +12,57 @@ import { verifyHash } from "../auth/verify.js";
 
 const userRouter = Router();
 
+
+/**
+ * @openapi
+ * /users/login:
+ *  post:
+ *      summary: Login
+ *      description: Login to your account
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      required:
+ *                          - email
+ *                          - password
+ *                      properties:
+ *                          email:
+ *                              type: string
+ *                              example: "johndoe@gmail.com"
+ *                          password:
+ *                              type: string
+ *                              example: "Supersecurepass!1234"
+ *      response:
+ *          200:
+ *              description: Login successful
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              message:
+ *                                  type: string
+ *                                  example: "Successfully logged in"
+ *                              email:
+ *                                  type: string
+ *                                  example: "johndoe@gmail.com"
+ *                              jwt:
+ *                                  type: string
+ *                                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....jz9KN_7KtAE"
+ *          401:
+ *              description: Login failed for bad combinaison
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              errror:
+ *                                  type: string
+ *                                  example: "This email/password combinaison does not exist"
+ */
 userRouter.post("/login", async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { email, password } = loginSchema.parse(req.body);
@@ -19,7 +70,7 @@ userRouter.post("/login", async (req: Request, res: Response, next: NextFunction
         
         if (!exists) {
             return res.status(401).json({ error: "This email/password combinaison does not exist"});
-        };
+        }
 
         const userq = await db.select().from(users).where(eq(users.email, email)).limit(1);
         const user = userq[0];
