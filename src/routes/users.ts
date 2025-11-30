@@ -4,7 +4,6 @@ import { eq } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { users } from "../db/schemas.js";
 import { hashPassword } from "../auth/hash.js";
-
 import { loginSchema } from "../schemas/loginSchema.js";
 import { createUserSchema } from "../schemas/createUserSchema.js";
 import { usersExists } from "../auth/exists.js";

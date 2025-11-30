@@ -1,0 +1,4 @@
+npm run generate:docs
+npm run lint:fix
+
+git add openapi.json

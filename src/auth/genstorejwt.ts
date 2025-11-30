@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
+import { eq } from "drizzle-orm";
 
 import { db } from "../db/index.js";
 import { users } from "../db/schemas.js";
-import { eq } from "drizzle-orm";
 import { env } from "../config/env.js";
 
 export async function generateAndStoreJWT(userId: string, email: string): Promise<string> {

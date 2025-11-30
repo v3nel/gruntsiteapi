@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
-import { db } from "../db/index.js";
 
+import { db } from "../db/index.js";
 import { users } from "../db/schemas.js";
 
 export async function usersExists(email: string): Promise<boolean> {
