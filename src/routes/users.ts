@@ -35,7 +35,7 @@ const userRouter = Router();
  *                          password:
  *                              type: string
  *                              example: "Supersecurepass!1234"
- *      response:
+ *      responses:
  *          200:
  *              description: Login successful
  *              content:
@@ -101,6 +101,88 @@ userRouter.get("/", async (req: Request, res: Response, next: NextFunction) => {
     }
 });
 
+/**
+ * @openapi
+ * /users:
+ *  post:
+ *      summary: Create user
+ *      description: Allows authorized users to create an user on the dashboard
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      required:
+ *                          - email
+ *                          - password
+ *                          - permissions
+ *                      properties:
+ *                          email:
+ *                              type: string
+ *                              example: "johndoe@gmail.com"
+ *                          password:
+ *                              type: string
+ *                              example: "Supersecretpassword"
+ *                          permissions:
+ *                              type: object
+ *                              properties:
+ *                                  manage_podcasts:
+ *                                      type: boolean
+ *                                  manage_posts:
+ *                                      type: boolean
+ *                                  view_podcasts:
+ *                                      type: boolean
+ *                                  view_posts:
+ *                                      type: boolean
+ *                                  manage_cyphers:
+ *                                      type: boolean
+ *                                  view_cyphers:
+ *                                      type: boolean
+ *                                  manage_users:
+ *                                      type: boolean
+ *      responses:
+ *          201:
+ *              description: User created successfully
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              message:
+ *                                  type: string
+ *                                  example: "User created with the next informations"
+ *                              email:
+ *                                  type: string
+ *                                  example: "johndoe@gmail.com"
+ *                              permissions:
+ *                                  type: object
+ *                                  properties:
+ *                                      manage_podcasts:
+ *                                          type: boolean
+ *                                      manage_posts:
+ *                                          type: boolean
+ *                                      view_podcasts:
+ *                                          type: boolean
+ *                                      view_posts:
+ *                                          type: boolean
+ *                                      manage_cyphers:
+ *                                          type: boolean
+ *                                      view_cyphers:
+ *                                          type: boolean
+ *                                      manage_users:
+ *                                          type: boolean
+ *          409:
+ *              description: User already exists
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              error:
+ *                                  type: string
+ *                                  example: "User with this email already exists"
+ */
 userRouter.post("/", async (req: Request, res: Response, next: NextFunction) => {
     try {
         const body = createUserSchema.parse(req.body);
@@ -119,7 +201,7 @@ userRouter.post("/", async (req: Request, res: Response, next: NextFunction) => 
             }
         ]);
         return res.status(201).json({
-            response: "User created with the next informations",
+            message: "User created with the next informations",
             email: body.email,
             permissions: body.permissions
         });
