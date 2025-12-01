@@ -92,6 +92,53 @@ userRouter.post("/login", async (req: Request, res: Response, next: NextFunction
     }
 });
 
+/**
+ * @openapi
+ * /users:
+ *  get:
+ *      summary: Retrieve users
+ *      description: Retrieve a list of all the users of the dashboard
+ *      responses:
+ *          200:
+ *              description: Success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              type: object
+ *                              properties:
+ *                                  id:
+ *                                      type: integer
+ *                                      example: 1
+ *                                  email:
+ *                                      type: string
+ *                                      example: "johndoe@gmail.com"
+ *                                  permissions:
+ *                                      type: object
+ *                                      properties:
+ *                                          manage_podcasts:
+ *                                              type: boolean
+ *                                              example: true
+ *                                          manage_posts:
+ *                                              type: boolean
+ *                                              example: false
+ *                                          view_podcasts:
+ *                                              type: boolean
+ *                                              example: true
+ *                                          view_posts:
+ *                                              type: boolean
+ *                                              example: true
+ *                                          manage_cyphers:
+ *                                              type: boolean
+ *                                              example: false
+ *                                          view_cyphers:
+ *                                              type: boolean
+ *                                              example: true
+ *                                          manage_users:
+ *                                              type: boolean
+ *                                              example: false
+ */
 userRouter.get("/", async (req: Request, res: Response, next: NextFunction) => {
     try {
         const userTable = await db.select().from(users);
