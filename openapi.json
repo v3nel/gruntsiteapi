@@ -6,6 +6,38 @@
     "description": "Internal API of the Grünt website"
   },
   "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "description": "Sends informations about the process time and the status",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "uptime": {
+                      "type": "float",
+                      "example": 52.726634272
+                    },
+                    "timestamp": {
+                      "type": "int",
+                      "example": 1764677909362
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/": {
       "get": {
         "summary": "First",
