@@ -6,6 +6,34 @@
     "description": "Internal API of the Grünt website"
   },
   "paths": {
+    "/": {
+      "get": {
+        "summary": "First",
+        "description": "Gives informations about the api version",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "gruntsiteapi"
+                    },
+                    "version": {
+                      "type": "string",
+                      "example": "0.1.0"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/posts": {
       "get": {
         "summary": "Get Posts",
